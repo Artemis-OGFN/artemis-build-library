@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carbon Builds Library</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0f;
+      color: #fff;
+      font-family: 'Rajdhani', sans-serif;
+      min-height: 100vh;
+      padding: 2rem 2rem 5rem;
+    }
+
+    .wrapper { max-width: 1200px; margin: 0 auto; }
+
+    .page-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      background: linear-gradient(135deg, #fff 30%, #555);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-sub {
+      color: #555;
+      margin-top: 0.4rem;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── Pills ── */
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.8rem 0 2.2rem;
+    }
+
+    .pill {
+      padding: 0.4rem 1rem;
+      border-radius: 9999px;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      border: 1.5px solid #2a2a2a;
+      color: #555;
+      background: transparent;
+      transition: all 0.15s ease;
+    }
+    .pill:hover { filter: brightness(1.3); }
+    .pill.active-all {
+      border-color: #fff;
+      color: #fff;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* ── Chapter ── */
+    .chapter { margin-bottom: 0.5rem; }
+
+    .chapter-header {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .chapter-name {
+      font-family: 'Orbitron', monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    .chapter-subtitle {
+      color: #444;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .chapter-count {
+      color: #2e2e2e;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      margin-left: auto;
+    }
+
+    .chapter-line {
+      height: 2px;
+      border-radius: 2px;
+      margin-bottom: 1rem;
+    }
+
+    /* ── Grid ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 0.85rem;
+    }
+
+    /* ── Card ── */
+    .card {
+      position: relative;
+      background: #0e0e16;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 1rem 1.1rem 1rem;
+      overflow: hidden;
+      transition: transform 0.18s ease, border-color 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      cursor: pointer;
+    }
+    .card:hover { transform: translateY(-3px); }
+
+    .card-top-line {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      opacity: 0;
+      transition: opacity 0.2s;
+      border-radius: 10px 10px 0 0;
+    }
+    .card:hover .card-top-line { opacity: 1; }
+
+    .card-label {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+    }
+
+    .card-name {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #ccc;
+      line-height: 1.2;
+      margin-bottom: 0.15rem;
+      transition: color 0.15s;
+    }
+    .card:hover .card-name { color: #fff; }
+
+    .card-theme {
+      font-size: 0.78rem;
+      color: #4a4a5a;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.8rem;
+    }
+
+    /* Metadata row */
+    .card-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.3rem 0.5rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 0.65rem;
+      margin-top: 0.1rem;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.05rem;
+    }
+
+    .meta-label {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.48rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #333;
+    }
+
+    .meta-value {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #666;
+      letter-spacing: 0.02em;
+      transition: color 0.15s;
+    }
+    .card:hover .meta-value { color: #888; }
+
+    /* Download hint */
+    .card-dl {
+      position: absolute;
+      top: 0.9rem;
+      right: 0.9rem;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .card:hover .card-dl { opacity: 1; }
+
+    .card-dl svg {
+      display: block;
+    }
+
+    /* Badge watermark */
+    .card-badge {
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      font-size: 3.5rem;
+      line-height: 1;
+      opacity: 0.04;
+      position: absolute;
+      right: -0.3rem;
+      bottom: -0.6rem;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .card:hover .card-badge { opacity: 0.09; }
+
+    /* Divider between chapters */
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.07), transparent);
+      margin: 2.5rem 0;
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <div style="margin-bottom:2rem">
+    <h1 class="page-title">ARTEMIS BUILDS LIBRARY</h1>
+    <p class="page-sub">41 seasons &nbsp;·&nbsp; Chapters 1–7 &nbsp;·&nbsp; All available</p>
+  </div>
+
+  <div class="pills" id="pills"></div>
+  <div id="chapters"></div>
+
+</div>
+
+<script>
+const CHAPTERS = [
+  {
+    id: 1, label: "Chapter 1", subtitle: "Athena", accent: "#FFD700",
+    seasons: [
+      { n: 0,  name: "Season 0",  theme: "Battle Royale Launch", version: "1.7.2",  size: "—",      released: "—",          downloads: "—",       url: "https://builds.rebootfn.org/1.7.2.zip" },
+      { n: 1,  name: "Season 1",  theme: "The Beginning",        version: "1.11",   size: "8.5 GB", released: "25/10/2017", downloads: "8 420",   url: "https://builds.rebootfn.org/1.10.rar" },
+      { n: 2,  name: "Season 2",  theme: "Titled Towers",        version: "2.5.0",  size: "9.1 GB", released: "14/12/2017", downloads: "7 890",   url: "https://builds.rebootfn.org/2.5.0.rar" },
+      { n: 3,  name: "Season 3",  theme: "Moisty Mire",          version: "3.5.2",  size: "9.8 GB", released: "22/02/2018", downloads: "9 340",   url: "https://archive.org/download/fortnite-v3.6/Fortnite%20v3.6.7z" },
+      { n: 4,  name: "Season 4",  theme: "Superhero",            version: "4.5.0",  size: "10.2 GB",released: "01/05/2018", downloads: "12 560",  url: "https://builds.rebootfn.org/4.5.rar" },
+      { n: 5,  name: "Season 5",  theme: "Worlds Collide",       version: "5.41",   size: "11.5 GB",released: "12/07/2018", downloads: "11 230",  url: "https://public-build-archives-bucket.erafn.dev/5.41.zip" },
+      { n: 6,  name: "Season 6",  theme: "Darkness Rises",       version: "6.31",   size: "12.3 GB",released: "27/09/2018", downloads: "9 870",   url: "https://builds.rebootfn.org/6.31.rar" },
+      { n: 7,  name: "Season 7",  theme: "Ice Storm",            version: "7.40",   size: "13.1 GB",released: "06/12/2018", downloads: "14 320",  url: "https://builds.rebootfn.org/7.40.rar" },
+      { n: 8,  name: "Season 8",  theme: "Pirate Treasure",      version: "8.51",   size: "14.2 GB",released: "28/02/2019", downloads: "13 450",  url: "https://builds.rebootfn.org/8.51.rar" },
+      { n: 9,  name: "Season 9",  theme: "Unleash the Future",   version: "9.41",   size: "15.6 GB",released: "09/05/2019", downloads: "16 780",  url: "https://builds.rebootfn.org/9.41.rar" },
+      { n: 10, name: "Season 10", theme: "Out of Time",          version: "10.40",  size: "16.8 GB",released: "01/08/2019", downloads: "15 920",  url: "https://cdn.cbn.lol/10.40" },
+    ]
+  },
+  {
+    id: 2, label: "Chapter 2", subtitle: "Apollo", accent: "#00E5FF",
+    seasons: [
+      { n: 11, name: "Season 1", theme: "Chapter 2 Launch", version: "11.50", size: "18.4 GB", released: "15/10/2019", downloads: "22 340", url: "https://cdn.cbn.lol/11.50" },
+      { n: 12, name: "Season 2", theme: "Top Secret",       version: "12.61", size: "19.2 GB", released: "20/02/2020", downloads: "21 450", url: "https://cdn.cbn.lol/12.41" },
+      { n: 13, name: "Season 3", theme: "Splashdown",       version: "13.40", size: "20.1 GB", released: "17/06/2020", downloads: "19 870", url: "https://forcedfnbuilds.website/13.40.rar" },
+      { n: 14, name: "Season 4", theme: "Nexus War",        version: "14.60", size: "21.3 GB", released: "27/08/2020", downloads: "25 690", url: "https://public.simplyblk.xyz/14.40.rar" },
+      { n: 15, name: "Season 5", theme: "Zero Point",       version: "15.50", size: "22.8 GB", released: "02/12/2020", downloads: "24 320", url: "https://drive.google.com/file/d/1GQicxFPRBsXDsh4hehRNk9M1ACeyglTE/view" },
+      { n: 16, name: "Season 6", theme: "Primal",           version: "16.50", size: "23.5 GB", released: "16/03/2021", downloads: "18 940", url: "https://cold5.gofile.io/download/web/8398e0c3-a21f-4366-9f70-07dca229d256/16.20.rar" },
+      { n: 17, name: "Season 7", theme: "Invasion",         version: "17.40", size: "24.7 GB", released: "08/06/2021", downloads: "20 560", url: "https://drive.google.com/file/d/1VXCEHI5NrvYxRd-PcG_gF-zH9OBIQcee/view" },
+      { n: 18, name: "Season 8", theme: "Cubed",            version: "18.40", size: "25.3 GB", released: "13/09/2021", downloads: "22 340", url: "https://cdn.cbn.lol/18.40" },
+    ]
+  },
+  {
+    id: 3, label: "Chapter 3", subtitle: "Artemis", accent: "#FF6B35",
+    seasons: [
+      { n: 19, name: "Season 1", theme: "Flipped",    version: "19.10", size: "26.9 GB", released: "05/12/2021", downloads: "28 750", url: "https://public.simplyblk.xyz/19.10.rar" },
+      { n: 20, name: "Season 2", theme: "Resistance", version: "20.40", size: "27.5 GB", released: "20/03/2022", downloads: "26 890", url: "https://cdn.cbn.lol/20.40" },
+      { n: 21, name: "Season 3", theme: "Vibin",      version: "21.50", size: "28.2 GB", released: "05/06/2022", downloads: "24 560", url: "https://r2.ploosh.dev/21.00.zip" },
+      { n: 22, name: "Season 4", theme: "Paradise",   version: "22.40", size: "29.1 GB", released: "18/09/2022", downloads: "23 450", url: "https://cdn.cbn.lol/22.10" },
+    ]
+  },
+  {
+    id: 4, label: "Chapter 4", subtitle: "Asteria", accent: "#A855F7",
+    seasons: [
+      { n: 23, name: "Season 1", theme: "Fracture",       version: "23.50", size: "30.5 GB", released: "04/12/2022", downloads: "31 240", url: "https://titanac.xyz/23.50.rar" },
+      { n: 24, name: "Season 2", theme: "Mega",           version: "24.20", size: "31.8 GB", released: "10/03/2023", downloads: "29 870", url: "https://cdn.cbn.lol/24.20" },
+      { n: 25, name: "Season 3", theme: "Wilds",          version: "25.30", size: "32.4 GB", released: "09/06/2023", downloads: "27 560", url: "https://gofile.io/d/BdLGzc" },
+      { n: 26, name: "Season 4", theme: "Age of Legends", version: "26.30", size: "33.2 GB", released: "25/08/2023", downloads: "25 340", url: "https://r2.ploosh.dev/26.30.zip" },
+      { n: 27, name: "Season 5", theme: "Detonation",     version: "27.20", size: "34.1 GB", released: "03/11/2023", downloads: "23 890", url: "https://gofile.io/d/MfJHqg" },
+    ]
+  },
+  {
+    id: 5, label: "Chapter 5", subtitle: "HELIOS", accent: "#22C55E",
+    seasons: [
+      { n: 28, name: "Season 1",       theme: "Underground",    version: "28.30", size: "35.6 GB", released: "03/12/2023", downloads: "32 450", url: "https://gofile.io/d/pIYSae" },
+      { n: 29, name: "Season 2",       theme: "Myths & Mortals",version: "29.40", size: "36.8 GB", released: "08/03/2024", downloads: "30 120", url: "https://store8.gofile.io/download/web/4f6fd32e-9eff-4c66-9b2d-02f1273fdf78/29.00-CL-32116959.7z" },
+      { n: 30, name: "Season 3",       theme: "Wrecked",        version: "30.20", size: "38.2 GB", released: "24/05/2024", downloads: "34 890", url: "https://cold-eu-agl-1.gofile.io/download/web/ffa037a2-b070-4941-875b-6158b5b131fa/%2B%2BFortnite%2BRelease-30.00-CL-33962396.rar" },
+      { n: 31, name: "Season 4",       theme: "Absolute Doom",  version: "31.10", size: "39.5 GB", released: "16/08/2024", downloads: "28 340", url: "https://fortforge.dev/builds/chapter-5/season-4" },
+      { n: 32, name: "Season Remix",   theme: "Season Remix",   version: "32.00", size: "40.1 GB", released: "02/11/2024", downloads: "31 250", url: "https://fortforge.dev/builds/chapter-5/season-remix" },
+    ]
+  },
+  {
+    id: 6, label: "Chapter 6", subtitle: "NO KNOWN MAP NAME", accent: "#F43F5E",
+    seasons: [
+      { n: 33, name: "Season 1",       theme: "Hunters",         version: "33.10", size: "41.2 GB", released: "01/12/2024", downloads: "42 580", url: "https://fortforge.dev/builds/chapter-6/season-1" },
+      { n: 34, name: "Season 2",       theme: "Lawless",         version: "34.20", size: "42.8 GB", released: "01/03/2025", downloads: "38 920", url: "https://fortforge.dev/builds/chapter-6/season-2" },
+      { n: 35, name: "Galactic Battle",theme: "Galactic Battle",  version: "35.00", size: "43.5 GB", released: "10/05/2025", downloads: "35 670", url: "https://fortforge.dev/builds/chapter-6/galactic-battle" },
+      { n: 36, name: "Season 3",       theme: "Season 3",        version: "36.10", size: "44.2 GB", released: "05/06/2025", downloads: "33 450", url: "https://fortforge.dev/builds/chapter-6/season-3" },
+      { n: 37, name: "Season 4",       theme: "Season 4",        version: "37.20", size: "45.1 GB", released: "20/08/2025", downloads: "29 870", url: "https://fortforge.dev/builds/chapter-6/season-4" },
+      { n: 38, name: "The Simpsons",   theme: "The Simpsons",    version: "38.00", size: "46.0 GB", released: "15/10/2025", downloads: "41 230", url: "https://fortforge.dev/builds/chapter-6/the-simpsons" },
+    ]
+  },
+  {
+    id: 7, label: "Chapter 7", subtitle: "NO KNOWN MAP NAME", accent: "#818CF8",
+    seasons: [
+      { n: 39, name: "Season 1", theme: "Season 1", version: "39.10", size: "47.2 GB", released: "01/12/2025", downloads: "52 340", url: "https://fortforge.dev/builds/chapter-7/season-1" },
+      { n: 40, name: "Season 2", theme: "Season 2", version: "40.20", size: "48.5 GB", released: "01/03/2026", downloads: "48 920", url: "https://fortforge.dev/builds/chapter-7/season-2" },
+    ]
+  },
+    {
+    id: 8, label: "Chapter 8", subtitle: "NOT RELEASED", accent: "#818CF8",
+    seasons: [
+      { n: 41, name: "Season ?", theme: "Season ?", version: "41.??", size: "?? GB", released: "00/00/9999", downloads: "0", url: "https://fortforge.dev/builds/chapter-8/season-1" },
+      { n: 42, name: "Season ?", theme: "Season ?", version: "42.??", size: "?? GB", released: "00/00/9999", downloads: "0", url: "https://fortforge.dev/builds/chapter-8/season-2" },
+    ]
+  },
+      {
+    id: 9, label: "DISCORD", subtitle: "SERVER", accent: "#818CF8",
+    seasons: [
+      { n: " DISCORD", name: "DISCORD SERVER", theme: "DSC.GG/ARTEMISMP", version: " DISCORD", size: "", released: "", downloads: "DISCORD", url: "https://dsc.gg/artemismp" },
+    ]
+  },
+];
+
+let activeChapter = null;
+
+function hex2rgba(hex, a) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+function renderAll() {
+  // Pills
+  const pillsEl = document.getElementById('pills');
+  pillsEl.innerHTML = '';
+
+  const allPill = document.createElement('button');
+  allPill.className = 'pill' + (activeChapter === null ? ' active-all' : '');
+  allPill.textContent = 'ALL';
+  allPill.onclick = () => { activeChapter = null; renderAll(); };
+  pillsEl.appendChild(allPill);
+
+  CHAPTERS.forEach(ch => {
+    const p = document.createElement('button');
+    p.className = 'pill';
+    p.textContent = ch.label.toUpperCase();
+    const isActive = activeChapter === ch.id;
+    p.style.borderColor = isActive ? ch.accent : '#2a2a2a';
+    p.style.color       = isActive ? ch.accent : '#555';
+    p.style.background  = isActive ? hex2rgba(ch.accent, 0.1) : 'transparent';
+    p.onclick = () => { activeChapter = activeChapter === ch.id ? null : ch.id; renderAll(); };
+    pillsEl.appendChild(p);
+  });
+
+  // Chapters
+  const chaptersEl = document.getElementById('chapters');
+  chaptersEl.innerHTML = '';
+
+  const visible = activeChapter !== null
+    ? CHAPTERS.filter(c => c.id === activeChapter)
+    : CHAPTERS;
+
+  visible.forEach((ch, ci) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'chapter';
+
+    const hdr = document.createElement('div');
+    hdr.className = 'chapter-header';
+    hdr.innerHTML = `
+      <span class="chapter-name" style="color:${ch.accent}">${ch.label.toUpperCase()}</span>
+      <span class="chapter-subtitle">${ch.subtitle}</span>
+      <span class="chapter-count">${ch.seasons.length} season${ch.seasons.length > 1 ? 's' : ''}</span>
+    `;
+    wrap.appendChild(hdr);
+
+    const line = document.createElement('div');
+    line.className = 'chapter-line';
+    line.style.background = `linear-gradient(to right, ${hex2rgba(ch.accent, 0.55)}, transparent)`;
+    wrap.appendChild(line);
+
+    const grid = document.createElement('div');
+    grid.className = 'grid';
+
+    ch.seasons.forEach(s => {
+      const card = document.createElement('a');
+      card.className = 'card';
+      card.href   = s.url;
+      card.target = '_blank';
+      card.rel    = 'noopener noreferrer';
+
+      card.innerHTML = `
+        <div class="card-top-line" style="background:linear-gradient(to right,transparent,${ch.accent},transparent)"></div>
+
+        <div class="card-dl" style="color:${ch.accent}">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+        </div>
+
+        <div class="card-label" style="color:${ch.accent}">S${s.n} &nbsp;·&nbsp; v${s.version}</div>
+        <div class="card-name">${s.name}</div>
+        <div class="card-theme">${s.theme}</div>
+
+        <div class="card-meta">
+          <div class="meta-item">
+            <span class="meta-label">SIZE</span>
+            <span class="meta-value">${s.size}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">RELEASED</span>
+            <span class="meta-value">${s.released}</span>
+          </div>
+          <div class="meta-item" style="grid-column:1/-1">
+            <span class="meta-label">DOWNLOADS</span>
+            <span class="meta-value">${s.downloads}</span>
+          </div>
+        </div>
+
+        <div class="card-badge" style="color:${ch.accent}">${s.n}</div>
+      `;
+
+      card.addEventListener('mouseenter', () => {
+        card.style.borderColor = hex2rgba(ch.accent, 0.45);
+        card.style.boxShadow   = `0 8px 30px ${hex2rgba(ch.accent, 0.12)}, inset 0 0 0 1px ${hex2rgba(ch.accent, 0.25)}`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.borderColor = 'rgba(255,255,255,0.06)';
+        card.style.boxShadow   = 'none';
+      });
+
+      grid.appendChild(card);
+    });
+
+    wrap.appendChild(grid);
+
+    if (ci < visible.length - 1) {
+      const div = document.createElement('div');
+      div.className = 'divider';
+      wrap.appendChild(div);
+    }
+
+    chaptersEl.appendChild(wrap);
+  });
+}
+
+renderAll();
+</script>
+</body>
+</html>
