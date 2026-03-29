@@ -37,7 +37,6 @@
       text-transform: uppercase;
     }
 
-    /* ── Pills ── */
     .pills {
       display: flex;
       flex-wrap: wrap;
@@ -65,7 +64,6 @@
       background: rgba(255,255,255,0.08);
     }
 
-    /* ── Chapter ── */
     .chapter { margin-bottom: 0.5rem; }
 
     .chapter-header {
@@ -103,14 +101,12 @@
       margin-bottom: 1rem;
     }
 
-    /* ── Grid ── */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
       gap: 0.85rem;
     }
 
-    /* ── Card ── */
     .card {
       position: relative;
       background: #0e0e16;
@@ -163,7 +159,6 @@
       margin-bottom: 0.8rem;
     }
 
-    /* Metadata row */
     .card-meta {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -196,7 +191,6 @@
     }
     .card:hover .meta-value { color: #888; }
 
-    /* Download hint */
     .card-dl {
       position: absolute;
       top: 0.9rem;
@@ -205,12 +199,8 @@
       transition: opacity 0.2s;
     }
     .card:hover .card-dl { opacity: 1; }
+    .card-dl svg { display: block; }
 
-    .card-dl svg {
-      display: block;
-    }
-
-    /* Badge watermark */
     .card-badge {
       font-family: 'Orbitron', monospace;
       font-weight: 900;
@@ -225,7 +215,6 @@
     }
     .card:hover .card-badge { opacity: 0.09; }
 
-    /* Divider between chapters */
     .divider {
       height: 1px;
       background: linear-gradient(to right, transparent, rgba(255,255,255,0.07), transparent);
@@ -251,17 +240,17 @@ const CHAPTERS = [
   {
     id: 1, label: "Chapter 1", subtitle: "Athena", accent: "#FFD700",
     seasons: [
-      { n: 0,  name: "Season 0",  theme: "Battle Royale Launch", version: "1.7.2",  size: "—",      released: "—",          downloads: "—",       url: "https://builds.rebootfn.org/1.7.2.zip" },
-      { n: 1,  name: "Season 1",  theme: "The Beginning",        version: "1.11",   size: "8.5 GB", released: "25/10/2017", downloads: "8 420",   url: "https://builds.rebootfn.org/1.10.rar" },
-      { n: 2,  name: "Season 2",  theme: "Titled Towers",        version: "2.5.0",  size: "9.1 GB", released: "14/12/2017", downloads: "7 890",   url: "https://builds.rebootfn.org/2.5.0.rar" },
-      { n: 3,  name: "Season 3",  theme: "Moisty Mire",          version: "3.5.2",  size: "9.8 GB", released: "22/02/2018", downloads: "9 340",   url: "https://archive.org/download/fortnite-v3.6/Fortnite%20v3.6.7z" },
-      { n: 4,  name: "Season 4",  theme: "Superhero",            version: "4.5.0",  size: "10.2 GB",released: "01/05/2018", downloads: "12 560",  url: "https://builds.rebootfn.org/4.5.rar" },
-      { n: 5,  name: "Season 5",  theme: "Worlds Collide",       version: "5.41",   size: "11.5 GB",released: "12/07/2018", downloads: "11 230",  url: "https://public-build-archives-bucket.erafn.dev/5.41.zip" },
-      { n: 6,  name: "Season 6",  theme: "Darkness Rises",       version: "6.31",   size: "12.3 GB",released: "27/09/2018", downloads: "9 870",   url: "https://builds.rebootfn.org/6.31.rar" },
-      { n: 7,  name: "Season 7",  theme: "Ice Storm",            version: "7.40",   size: "13.1 GB",released: "06/12/2018", downloads: "14 320",  url: "https://builds.rebootfn.org/7.40.rar" },
-      { n: 8,  name: "Season 8",  theme: "Pirate Treasure",      version: "8.51",   size: "14.2 GB",released: "28/02/2019", downloads: "13 450",  url: "https://builds.rebootfn.org/8.51.rar" },
-      { n: 9,  name: "Season 9",  theme: "Unleash the Future",   version: "9.41",   size: "15.6 GB",released: "09/05/2019", downloads: "16 780",  url: "https://builds.rebootfn.org/9.41.rar" },
-      { n: 10, name: "Season 10", theme: "Out of Time",          version: "10.40",  size: "16.8 GB",released: "01/08/2019", downloads: "15 920",  url: "https://cdn.cbn.lol/10.40" },
+      { n: 0,  name: "Season 0",  theme: "Battle Royale Launch", version: "1.7.2",  size: "—",       released: "—",          downloads: "—",      url: "https://builds.rebootfn.org/1.7.2.zip" },
+      { n: 1,  name: "Season 1",  theme: "The Beginning",        version: "1.11",   size: "8.5 GB",  released: "25/10/2017", downloads: "8 420",  url: "https://builds.rebootfn.org/1.10.rar" },
+      { n: 2,  name: "Season 2",  theme: "Titled Towers",        version: "2.5.0",  size: "9.1 GB",  released: "14/12/2017", downloads: "7 890",  url: "https://builds.rebootfn.org/2.5.0.rar" },
+      { n: 3,  name: "Season 3",  theme: "Moisty Mire",          version: "3.5.2",  size: "9.8 GB",  released: "22/02/2018", downloads: "9 340",  url: "https://archive.org/download/fortnite-v3.6/Fortnite%20v3.6.7z" },
+      { n: 4,  name: "Season 4",  theme: "Superhero",            version: "4.5.0",  size: "10.2 GB", released: "01/05/2018", downloads: "12 560", url: "https://builds.rebootfn.org/4.5.rar" },
+      { n: 5,  name: "Season 5",  theme: "Worlds Collide",       version: "5.41",   size: "11.5 GB", released: "12/07/2018", downloads: "11 230", url: "https://public-build-archives-bucket.erafn.dev/5.41.zip" },
+      { n: 6,  name: "Season 6",  theme: "Darkness Rises",       version: "6.31",   size: "12.3 GB", released: "27/09/2018", downloads: "9 870",  url: "https://builds.rebootfn.org/6.31.rar" },
+      { n: 7,  name: "Season 7",  theme: "Ice Storm",            version: "7.40",   size: "13.1 GB", released: "06/12/2018", downloads: "14 320", url: "https://builds.rebootfn.org/7.40.rar" },
+      { n: 8,  name: "Season 8",  theme: "Pirate Treasure",      version: "8.51",   size: "14.2 GB", released: "28/02/2019", downloads: "13 450", url: "https://builds.rebootfn.org/8.51.rar" },
+      { n: 9,  name: "Season 9",  theme: "Unleash the Future",   version: "9.41",   size: "15.6 GB", released: "09/05/2019", downloads: "16 780", url: "https://builds.rebootfn.org/9.41.rar" },
+      { n: 10, name: "Season 10", theme: "Out of Time",          version: "10.40",  size: "16.8 GB", released: "01/08/2019", downloads: "15 920", url: "https://cdn.cbn.lol/10.40" },
     ]
   },
   {
@@ -299,22 +288,22 @@ const CHAPTERS = [
   {
     id: 5, label: "Chapter 5", subtitle: "HELIOS", accent: "#22C55E",
     seasons: [
-      { n: 28, name: "Season 1",       theme: "Underground",    version: "28.30", size: "35.6 GB", released: "03/12/2023", downloads: "32 450", url: "https://gofile.io/d/pIYSae" },
-      { n: 29, name: "Season 2",       theme: "Myths & Mortals",version: "29.40", size: "36.8 GB", released: "08/03/2024", downloads: "30 120", url: "https://store8.gofile.io/download/web/4f6fd32e-9eff-4c66-9b2d-02f1273fdf78/29.00-CL-32116959.7z" },
-      { n: 30, name: "Season 3",       theme: "Wrecked",        version: "30.20", size: "38.2 GB", released: "24/05/2024", downloads: "34 890", url: "https://cold-eu-agl-1.gofile.io/download/web/ffa037a2-b070-4941-875b-6158b5b131fa/%2B%2BFortnite%2BRelease-30.00-CL-33962396.rar" },
-      { n: 31, name: "Season 4",       theme: "Absolute Doom",  version: "31.10", size: "39.5 GB", released: "16/08/2024", downloads: "28 340", url: "https://fortforge.dev/builds/chapter-5/season-4" },
-      { n: 32, name: "Season Remix",   theme: "Season Remix",   version: "32.00", size: "40.1 GB", released: "02/11/2024", downloads: "31 250", url: "https://fortforge.dev/builds/chapter-5/season-remix" },
+      { n: 28, name: "Season 1",     theme: "Underground",     version: "28.30", size: "35.6 GB", released: "03/12/2023", downloads: "32 450", url: "https://gofile.io/d/pIYSae" },
+      { n: 29, name: "Season 2",     theme: "Myths & Mortals", version: "29.40", size: "36.8 GB", released: "08/03/2024", downloads: "30 120", url: "https://store8.gofile.io/download/web/4f6fd32e-9eff-4c66-9b2d-02f1273fdf78/29.00-CL-32116959.7z" },
+      { n: 30, name: "Season 3",     theme: "Wrecked",         version: "30.20", size: "38.2 GB", released: "24/05/2024", downloads: "34 890", url: "https://cold-eu-agl-1.gofile.io/download/web/ffa037a2-b070-4941-875b-6158b5b131fa/%2B%2BFortnite%2BRelease-30.00-CL-33962396.rar" },
+      { n: 31, name: "Season 4",     theme: "Absolute Doom",   version: "31.10", size: "39.5 GB", released: "16/08/2024", downloads: "28 340", url: "https://fortforge.dev/builds/chapter-5/season-4" },
+      { n: 32, name: "Season Remix", theme: "Season Remix",    version: "32.00", size: "40.1 GB", released: "02/11/2024", downloads: "31 250", url: "https://fortforge.dev/builds/chapter-5/season-remix" },
     ]
   },
   {
     id: 6, label: "Chapter 6", subtitle: "NO KNOWN MAP NAME", accent: "#F43F5E",
     seasons: [
-      { n: 33, name: "Season 1",       theme: "Hunters",         version: "33.10", size: "41.2 GB", released: "01/12/2024", downloads: "42 580", url: "https://fortforge.dev/builds/chapter-6/season-1" },
-      { n: 34, name: "Season 2",       theme: "Lawless",         version: "34.20", size: "42.8 GB", released: "01/03/2025", downloads: "38 920", url: "https://fortforge.dev/builds/chapter-6/season-2" },
-      { n: 35, name: "Galactic Battle",theme: "Galactic Battle",  version: "35.00", size: "43.5 GB", released: "10/05/2025", downloads: "35 670", url: "https://fortforge.dev/builds/chapter-6/galactic-battle" },
-      { n: 36, name: "Season 3",       theme: "Season 3",        version: "36.10", size: "44.2 GB", released: "05/06/2025", downloads: "33 450", url: "https://fortforge.dev/builds/chapter-6/season-3" },
-      { n: 37, name: "Season 4",       theme: "Season 4",        version: "37.20", size: "45.1 GB", released: "20/08/2025", downloads: "29 870", url: "https://fortforge.dev/builds/chapter-6/season-4" },
-      { n: 38, name: "The Simpsons",   theme: "The Simpsons",    version: "38.00", size: "46.0 GB", released: "15/10/2025", downloads: "41 230", url: "https://fortforge.dev/builds/chapter-6/the-simpsons" },
+      { n: 33, name: "Season 1",       theme: "Hunters",        version: "33.10", size: "41.2 GB", released: "01/12/2024", downloads: "42 580", url: "https://fortforge.dev/builds/chapter-6/season-1" },
+      { n: 34, name: "Season 2",       theme: "Lawless",        version: "34.20", size: "42.8 GB", released: "01/03/2025", downloads: "38 920", url: "https://fortforge.dev/builds/chapter-6/season-2" },
+      { n: 35, name: "Galactic Battle",theme: "Galactic Battle", version: "35.00", size: "43.5 GB", released: "10/05/2025", downloads: "35 670", url: "https://fortforge.dev/builds/chapter-6/galactic-battle" },
+      { n: 36, name: "Season 3",       theme: "Season 3",       version: "36.10", size: "44.2 GB", released: "05/06/2025", downloads: "33 450", url: "https://fortforge.dev/builds/chapter-6/season-3" },
+      { n: 37, name: "Season 4",       theme: "Season 4",       version: "37.20", size: "45.1 GB", released: "20/08/2025", downloads: "29 870", url: "https://fortforge.dev/builds/chapter-6/season-4" },
+      { n: 38, name: "The Simpsons",   theme: "The Simpsons",   version: "38.00", size: "46.0 GB", released: "15/10/2025", downloads: "41 230", url: "https://fortforge.dev/builds/chapter-6/the-simpsons" },
     ]
   },
   {
@@ -324,17 +313,17 @@ const CHAPTERS = [
       { n: 40, name: "Season 2", theme: "Season 2", version: "40.20", size: "48.5 GB", released: "01/03/2026", downloads: "48 920", url: "https://fortforge.dev/builds/chapter-7/season-2" },
     ]
   },
-    {
-    id: 8, label: "Chapter 8", subtitle: "NOT RELEASED", accent: "#818CF8",
+  {
+    id: 8, label: "Chapter 8", subtitle: "NOT RELEASED", accent: "#F97316",
     seasons: [
       { n: 41, name: "Season ?", theme: "Season ?", version: "41.??", size: "?? GB", released: "00/00/9999", downloads: "0", url: "https://fortforge.dev/builds/chapter-8/season-1" },
       { n: 42, name: "Season ?", theme: "Season ?", version: "42.??", size: "?? GB", released: "00/00/9999", downloads: "0", url: "https://fortforge.dev/builds/chapter-8/season-2" },
     ]
   },
-      {
-    id: 9, label: "DISCORD", subtitle: "SERVER", accent: "#818CF8",
+  {
+    id: 9, label: "DISCORD", subtitle: "SERVER", accent: "#5865F2",
     seasons: [
-      { n: " DISCORD", name: "DISCORD SERVER", theme: "DSC.GG/ARTEMISMP", version: " DISCORD", size: "", released: "", downloads: "DISCORD", url: "https://dsc.gg/artemismp" },
+      { n: "DC", name: "DISCORD SERVER", theme: "DSC.GG/ARTEMISMP", version: "DISCORD", size: "", released: "", downloads: "JOIN US", url: "https://dsc.gg/artemismp" },
     ]
   },
 ];
@@ -349,7 +338,6 @@ function hex2rgba(hex, a) {
 }
 
 function renderAll() {
-  // Pills
   const pillsEl = document.getElementById('pills');
   pillsEl.innerHTML = '';
 
@@ -371,7 +359,6 @@ function renderAll() {
     pillsEl.appendChild(p);
   });
 
-  // Chapters
   const chaptersEl = document.getElementById('chapters');
   chaptersEl.innerHTML = '';
 
@@ -409,7 +396,6 @@ function renderAll() {
 
       card.innerHTML = `
         <div class="card-top-line" style="background:linear-gradient(to right,transparent,${ch.accent},transparent)"></div>
-
         <div class="card-dl" style="color:${ch.accent}">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -417,11 +403,9 @@ function renderAll() {
             <line x1="12" y1="15" x2="12" y2="3"/>
           </svg>
         </div>
-
         <div class="card-label" style="color:${ch.accent}">S${s.n} &nbsp;·&nbsp; v${s.version}</div>
         <div class="card-name">${s.name}</div>
         <div class="card-theme">${s.theme}</div>
-
         <div class="card-meta">
           <div class="meta-item">
             <span class="meta-label">SIZE</span>
@@ -436,7 +420,6 @@ function renderAll() {
             <span class="meta-value">${s.downloads}</span>
           </div>
         </div>
-
         <div class="card-badge" style="color:${ch.accent}">${s.n}</div>
       `;
 
